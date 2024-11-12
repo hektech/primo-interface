@@ -175,7 +175,7 @@
       var updateHathiTrustAvailability = function updateHathiTrustAvailability() {
           console.log("035 looks like: " + self.prmSearchResultAvailabilityLine.result.pnx.addata.oclcid);
       
-          // Retrieve the oclc id list and filter for both oclc and ocm numbers
+          // Retrieve the oclc id list and filter for both oclc, ocm, ocn, and on numbers
           var hathiTrustIds = (self.prmSearchResultAvailabilityLine.result.pnx.addata.oclcid || []).filter(function(id) {
               return isOclcNum(id) || isOcmNum(id) || isOcnNum(id) || isOnNum(id); // Check for all identifiers
           }).map(function(id) {
