@@ -942,3 +942,9 @@ span.umnHathiTrustLink md-icon svg {
 span.umnHathiTrustLink:hover md-icon svg {
   filter: grayscale(0%);
 }
+
+/* For hold request submissions */
+form[name="requestForm"] button[type="submit"] {
+  margin-right: auto;
+  font-size: 111%;
+}
