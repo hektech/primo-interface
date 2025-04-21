@@ -2953,3 +2953,36 @@ form[name="requestForm"] button[type="submit"] {
   }
 
 }
+
+/* To spell out more what the resource type is */
+prm-brief-result-container .media-content-type {
+  padding: 1px 8px 2px;
+  color: #333;
+  border-radius: 10px;
+  border: 1px solid #bbb;
+}
+
+/* Make Full-Text Options Easier to See */
+prm-alma-viewit {
+  display: inline-block;
+}
+
+prm-action-list nav[aria-label='Actions options'] {
+  justify-content: start;
+}
+
+prm-quick-link a {
+  padding: 0.25rem 0;
+}
+
+prm-quick-link a>prm-icon[icon-definition="pdf-link"] {
+  color: red;
+}
+
+prm-quick-link a>prm-icon[icon-definition="html-link"] {
+  color: blue;
+}
+
+.full-view-section {
+  margin-top: 1.5em
+}
