@@ -2986,3 +2986,23 @@ prm-quick-link a>prm-icon[icon-definition="html-link"] {
 .full-view-section {
   margin-top: 1.5em
 }
+
+prm-brief-result .item-title {
+  font-size: 1.33em
+}
+
+prm-quick-link .spaced-rows .layout-row a {
+  box-shadow: inset 0 -2px 0 0 #53738c;
+}
+
+div.layout-align-start-start .arrow-link-button {
+  box-shadow: inset 0 -2px 0 0 #53738c;
+}
+
+div.layout-align-start-start .arrow-link-button b{
+  font-weight: normal !important;
+}
+
+div.layout-align-start-start .arrow-link-button span.availability-status {
+color: #0f7d00;
+}
