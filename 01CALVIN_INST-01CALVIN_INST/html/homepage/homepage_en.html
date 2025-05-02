@@ -1,6 +1,22 @@
-<md-content layout-xs="column" layout="row" class="hide">
+<!-- New books widget -->
+<md-content layout-xs="column" layout="row" class="_md md-primoExplore-theme layout-xs-column layout-row">
+    <div flex="100" layout="column" class="layout-column flex-100">
+        <md-card class="default-card _md md-primoExplore-theme">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">New Hekman Library Titles</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <search-carousel
+                    defaultThumbnailUrl="https://d2jv02qf7xgjwx.cloudfront.net/customers/726/images/default.png"
+                    searchUrl="https://calvin.primo.exlibrisgroup.com/primaws/rest/external/pnxs?acTriggered=false&blendFacetsSeparately=false&came_from=pagination_2_1&citationTrailFilterByAvailability=true&disableCache=false&getMore=0&inst=01CALVIN_INST&isCDSearch=false&lang=en&limit=10&mode=advanced&multiFacets=facet_newrecords,include,90+days+back%7C,%7Cfacet_tlevel,include,available_p%7C,%7Cfacet_rtype,include,books&newspapersActive=true&newspapersSearch=false&offset=0&otbRanking=false&pcAvailability=true&q=any,contains,%27*%27,AND;rtype,exact,books,AND&qExclude=facet_location_code,exact,8316%E2%80%93127046100008316%E2%80%93handlon%7C,%7Cfacet_location_code,exact,8316%E2%80%93127046100008316%E2%80%93on+order&qInclude=&rapido=false&refEntryActive=true&rtaLinks=true&scope=MyInstitution&searchInFulltextUserSelection=true&skipDelivery=Y&sort=rank&tab=LibraryCatalog&vid=01CALVIN_INST:01CALVIN_INST">
+            </md-card-content>
+        </md-card>
+    </div>
+</md-content>
 
-    <search-carousel></search-carousel>
+<md-content layout-xs="column" layout="row" class="hide">
 
     <div flex="60" layout="column">
         <md-card class="default-card">
