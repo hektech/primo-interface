@@ -3002,3 +3002,7 @@ div.layout-align-start-start .arrow-link-button {
 div.layout-align-start-start .arrow-link-button b{
   font-weight: normal !important;
 }
+
+prm-snippet {
+  display:none;
+}
