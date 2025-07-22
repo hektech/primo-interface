@@ -6,49 +6,11 @@
 
     var app = angular.module('viewCustom', ['angularLoad', 'hathiTrustAvailability']);
 
-
-    /**
-   * Dynamically loads a JavaScript file into the page as a module.
-   * If loading the primary file fails, it attempts to load a fallback URL (if provided).
-   *
-   * @param {string} FILE_URL - The main JavaScript file URL to load.
-   * @param {boolean} [async=true] - Whether the script should load asynchronously.
-   * @param {string|null} [onErrorURL=null] - Optional fallback script URL if the main one fails.
-   */
-
-    function loadJS(FILE_URL, async = true, onErrorURL = null) {
-        let scriptEle = document.createElement("script");
-        scriptEle.setAttribute("src", FILE_URL);
-        scriptEle.setAttribute("type", "module");
-        scriptEle.setAttribute("async", async);
-        document.body.appendChild(scriptEle);
-
-        scriptEle.addEventListener("load", () => {
-            console.log(`File loaded: ${FILE_URL}`);
-        });
-
-        scriptEle.addEventListener("error", (ev) => {
-            console.error(`Error loading ${FILE_URL}`, ev);
-            if (onErrorURL) {
-                console.log("Trying fallback URL...");
-                loadJS(onErrorURL, async); // Retry with backup
-            }
-        });
-    }
-
-    const localURL = '/discovery/custom/01CALVIN_INST-david2/js/discovery-showcase.bundled.js';
-    const fallbackURL = 'https://d2jv02qf7xgjwx.cloudfront.net/sites/737/include/discovery-showcase.bundled.js';
-
-    loadJS(localURL, true, fallbackURL);
-
-    console.log("showcase widget loaded");
-
     if (typeof angular !== 'undefined') {
         var app = angular.module('viewCustom', ['angularLoad', 'hathiTrustAvailability']);
     } else {
         console.warn('Angular is not available at this point. viewCustom module may not load correctly.');
     }
-
 
     /* Primo VE HathiTrust Availability Add-On for CARLI I-Share - 12/15/2020
     * adapted from https://github.com/UMNLibraries/primo-explore-hathitrust-availability
@@ -288,6 +250,67 @@
 
     /* END Primo VE HathiTrust Availability Add-On */
 
+    //Add MeL Search in Results
+    app.run(function ($rootScope, $location) {
+        $rootScope.$on('$locationChangeSuccess', function (event, newUrl, oldUrl) {
+
+            const baseUrl = 'https://calvin.primo.exlibrisgroup.com/discovery/search';
+
+            // Check if the new URL starts with the base URL (ignore query params)
+            if (newUrl.startsWith(baseUrl)) {
+                // Your MeLCat promo insertion logic runs only on this base URL's pages
+
+                setTimeout(() => {
+                    // Extract search term from URL params
+                    const params = new URLSearchParams(window.location.search);
+                    const fullQuery = params.get('query') || '';
+                    const termParts = fullQuery.split(',');
+                    const term = termParts.length > 0 ? termParts[termParts.length - 1] : '';
+
+                    if (!term) return;  // no search term, skip
+
+                    const container = document.getElementById('searchResultsContainer');
+                    if (!container) return; // search results container not found
+
+                    // Remove existing promo if already present to avoid duplicates
+                    const existingPromo = container.querySelector('.custom-mel-promo');
+                    if (existingPromo) {
+                        existingPromo.remove();
+                    }
+
+                    const promoDiv = document.createElement('div');
+                    promoDiv.className = 'custom-mel-promo';
+                    promoDiv.innerHTML = `
+          <h3 style="font-size:1.5rem">Can't Find Your Item?</h3>
+          <div style="display:inline-block;">
+            <a title="Get books and more from Michigan libraries via MeLCat" style="display:flex; font-size: 1.33rem; text-decoration: underline;" href="https://search.mel.org/iii/encore/search/C__S${encodeURIComponent(term)}__Orightresult__U" target="_blank" rel="noopener noreferrer">
+              <img src="https://d2jv02qf7xgjwx.cloudfront.net/customers/726/images/mel-72x50.png" alt="Michigan eLibrary" style="margin-right:1rem;width:72px;"> 
+              <p style="align-self: center;">Search MeLCat for <b>${term}</b></p>
+            </a> 
+          </div>
+          <div>
+            <a title="Get books and more from U.S. libraries (includes InterLibrary Loan)" style="display:flex; font-size: 1.33rem; text-decoration: underline;" href="https://search.worldcat.org/search?q=${encodeURIComponent(term)}&scope=&changedFacet=scope" target="_blank" rel="noopener noreferrer">
+              <img src="https://d2jv02qf7xgjwx.cloudfront.net/customers/726/images/worldcat-logo_100x100.jpg" alt="Worldcat" style="margin-right:1rem; width:72px;"> 
+              <p style="align-self: center;">Search Worldcat for <b>${term}</b></p>
+            </a> 
+          </div>
+        `;
+                    promoDiv.style.border = "1px solid";
+                    promoDiv.style.borderRadius = "10px";
+                    promoDiv.style.padding = "0.5rem 1rem";
+                    promoDiv.style.margin = "0.5rem";
+                    promoDiv.style.backgroundColor = "#fff";
+
+                    // Insert promo box just before the 4th child div of container
+                    const fourthDiv = container.children[3];
+                    container.insertBefore(promoDiv, fourthDiv);
+
+                }, 1000); // delay to allow search results DOM to render
+            }
+        });
+    });
+   //Add MeL Search in Results
+
 })();
 
 (() => {
@@ -330,4 +353,46 @@
             document.getElementsByTagName('body')[0].appendChild(script);
         }
     }, 2000);
-})();  
+})();
+
+(() => {
+    /**
+      * Dynamically loads a JavaScript file into the page as a module.
+      * If loading the primary file fails, it attempts to load a fallback URL (if provided).
+      *
+      * @param {string} FILE_URL - The main JavaScript file URL to load.
+      * @param {boolean} [async=true] - Whether the script should load asynchronously.
+      * @param {string|null} [onErrorURL=null] - Optional fallback script URL if the main one fails.
+      */
+
+    function loadJS(FILE_URL, async = true, onErrorURL = null) {
+        let scriptEle = document.createElement("script");
+        scriptEle.setAttribute("src", FILE_URL);
+        scriptEle.setAttribute("type", "module");
+        scriptEle.setAttribute("async", async);
+        document.body.appendChild(scriptEle);
+
+        scriptEle.addEventListener("load", () => {
+            console.log(`File loaded: ${FILE_URL}`);
+        });
+
+        scriptEle.addEventListener("error", (ev) => {
+            console.error(`Error loading ${FILE_URL}`, ev);
+            if (onErrorURL) {
+                console.log("Trying fallback URL...");
+                loadJS(onErrorURL, async); // Retry with backup
+            }
+        });
+    }
+
+    const localURL = '/discovery/custom/01CALVIN_INST-david2/js/discovery-showcase.bundled.js';
+    const fallbackURL = 'https://d2jv02qf7xgjwx.cloudfront.net/sites/737/include/discovery-showcase.bundled.js';
+
+    loadJS(localURL, true, fallbackURL);
+
+    console.log("showcase widget loaded");
+})();
+
+(() => {
+
+})(); 
