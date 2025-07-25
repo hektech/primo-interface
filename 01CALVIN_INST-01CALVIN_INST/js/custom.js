@@ -256,6 +256,11 @@
 
             const baseUrl = 'https://calvin.primo.exlibrisgroup.com/discovery/search';
 
+            // If URL contains "mode=advanced", skip the promo insertion
+            if (newUrl.includes('mode=advanced')) {
+                return; // Exit early, do nothing
+            }
+
             // Check if the new URL starts with the base URL (ignore query params)
             if (newUrl.startsWith(baseUrl)) {
                 // Your MeLCat promo insertion logic runs only on this base URL's pages
@@ -301,15 +306,15 @@
                     promoDiv.style.margin = "0.5rem";
                     promoDiv.style.backgroundColor = "#fff";
 
-                    // Insert promo box just before the 4th child div of container
-                    const fourthDiv = container.children[3];
+                    // Insert promo box just before the 3rd child div of container
+                    const fourthDiv = container.children[2];
                     container.insertBefore(promoDiv, fourthDiv);
 
-                }, 1000); // delay to allow search results DOM to render
+                }, 2500); // delay to allow search results DOM to render
             }
         });
     });
-   //Add MeL Search in Results
+    //Add MeL Search in Results
 
 })();
 
@@ -392,7 +397,3 @@
 
     console.log("showcase widget loaded");
 })();
-
-(() => {
-
-})(); 
