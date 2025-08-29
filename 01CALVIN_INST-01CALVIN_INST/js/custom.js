@@ -347,15 +347,13 @@
     div.id = 'libchat_' + libchatHash;
     div.style.cssText = 'text-align: right; position:fixed; right: 0; bottom: 0;';
 
-    // Append style, script, and div elements to the document body
-    document.getElementsByTagName('body')[0].appendChild(style);
-    document.getElementsByTagName('body')[0].appendChild(script);
-    document.getElementsByTagName('body')[0].appendChild(div);
-
     setTimeout(() => {
         if (location.href.indexOf(almaStr) !== 0) {
             // don't include in Alma viewer
+            // Append style, script, and div elements to the document body
+            document.getElementsByTagName('body')[0].appendChild(style);
             document.getElementsByTagName('body')[0].appendChild(script);
+            document.getElementsByTagName('body')[0].appendChild(div);
         }
     }, 2000);
 })();
