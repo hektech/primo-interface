@@ -261,6 +261,11 @@
                 return; // Exit early, do nothing
             }
 
+            // Skip if Course Reserves
+            if (newUrl.includes('tab=CourseReserves')) {
+                return; // Exit early, do nothing
+            }
+
             // Check if the new URL starts with the base URL (ignore query params)
             if (newUrl.startsWith(baseUrl)) {
                 // Your MeLCat promo insertion logic runs only on this base URL's pages
